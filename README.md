@@ -1,5 +1,5 @@
 # SQLALCHEMY
-automap implementation
+
 
 
 Generating Mappings from multiple Schemas:
