@@ -26,3 +26,11 @@ The mechanism by which this works for many-to-one and one-to-many relationships 
 6.In the usual case where no relationship is on either side, AutomapBase.prepare() produces a relationship() on the “many-to-one” side and matches it to the other using the relationship.backref parameter.
 
 
+
+Specifying the classes Explicitly 
+
+
+The automap extension allows classes to be defined explicitly, in a way similar to that of the DeferredReflection class. 
+Classes that extend from AutomapBase act like regular declarative classes, but are not immediately mapped after their construction, and are instead mapped when we call AutomapBase.prepare(). 
+The AutomapBase.prepare() method will make use of the classes we’ve established based on the table name we use.
+
