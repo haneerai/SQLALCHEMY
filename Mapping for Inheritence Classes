@@ -1,0 +1,20 @@
+class Employee(Base):
+    __tablename__ = 'employee'
+    id = Column(Integer, primary_key=True)
+    type = Column(String(50))
+    __mapper_args__ = {
+         'polymorphic_identity':'employee', 'polymorphic_on': type
+    }
+
+class Engineer(Employee):
+    __tablename__ = 'engineer'
+    id = Column(Integer, ForeignKey('employee.id'), primary_key=True)
+    __mapper_args__ = {
+        'polymorphic_identity':'engineer',
+    }
+    
+    
+The foreign key from Engineer to Employee is used not for a relationship, but to establish joined inheritance between the two classes.
+
+This means automap will not generate any relationships for foreign keys that link from a subclass to a superclass.
+If a mapping has actual relationships from subclass to superclass as well, those need to be explicitly stated
