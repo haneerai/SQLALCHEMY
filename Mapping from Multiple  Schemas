@@ -1,0 +1,9 @@
+e = create_engine("postgresql://scott:tiger@localhost/test")
+
+Base.metadata.create_all(e)
+
+Base = automap_base()
+
+Base.prepare(e)
+Base.prepare(e, schema="test_schema")
+Base.prepare(e, schema="test_schema_2")
