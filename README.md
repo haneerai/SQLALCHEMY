@@ -18,3 +18,11 @@ The mechanism by which this works for many-to-one and one-to-many relationships 
 2.From each ForeignKeyConstraint, the remote Table object present is matched up to the class to which it is to be mapped, if any, else it is skipped.
 
 3.As the ForeignKeyConstraint we are examining corresponds to a reference from the immediate mapped class, the relationship will be set up as a many-to-one referring to the referred class; a corresponding one-to-many backref will be created on the referred class referring to this class.
+
+4. The names of the relationships are determined using the AutomapBase.prepare.name_for_scalar_relationship and AutomapBase.prepare.name_for_collection_relationship callable functions.
+
+5.he classes are inspected for an existing mapped property matching these names. If one is detected on one side, but none on the other side, AutomapBase attempts to create a relationship on the missing side, then uses the relationship.back_populates parameter in order to point the new relationship to the other side.
+
+6.In the usual case where no relationship is on either side, AutomapBase.prepare() produces a relationship() on the “many-to-one” side and matches it to the other using the relationship.backref parameter.
+
+
