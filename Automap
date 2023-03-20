@@ -17,7 +17,7 @@ Address = Base.classes.address
 
 session = Session(engine)
 
-# rudimentary relationships are produced
+
 session.add(Address(email_address="foo@bar.com", user=User(name="foo")))
 session.commit()
 
