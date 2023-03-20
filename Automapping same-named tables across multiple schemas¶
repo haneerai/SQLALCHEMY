@@ -1,0 +1,20 @@
+#For the common case where multiple schemas may have same-named tables and therefore would generate same-named classes,
+#conflicts can be resolved either through use of the AutomapBase.prepare.classname_for_table hook to apply different classnames 
+#on a per-schema basis, or by using the AutomapBase.prepare.modulename_for_table hook, which allows disambiguation of same-named classes
+#by changing their effective __module__ attribute. 
+
+e = create_engine("postgresql://scott:tiger@localhost/test")
+
+Base.metadata.create_all(e)
+
+def module_name_for_table(cls, tablename, table):
+    if table.schema is not None:
+        return f"mymodule.{table.schema}"
+    else:
+        return f"mymodule.default"
+
+Base = automap_base()
+
+Base.prepare(e, modulename_for_table=module_name_for_table)
+Base.prepare(e, schema="test_schema", modulename_for_table=module_name_for_table)
+Base.prepare(e, schema="test_schema_2", modulename_for_table=module_name_for_table)
